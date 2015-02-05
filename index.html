@@ -1,0 +1,238 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Títulos Universitarios</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="js/jquery-ui.theme.min.css">
+    <link rel="stylesheet" type="text/css" href="js/jquery-ui.structure.min.css">
+    <link rel="stylesheet" type="text/css" href="js/jquery-ui.min.css">
+
+    <script src="js/lib/protovis-d3.2.js" type="text/javascript" charset="utf-8"></script>    
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
+  
+    <script src="js/elastic_lists2.js" type="text/javascript" charset="utf-8"></script>    
+    
+    <script type="text/javascript">
+      $(window).load(function() {
+        $(".loader").fadeOut("slow");
+      })
+    </script>
+
+  </head>
+
+  <style type="text/css">
+
+ /* body{
+    font-family: arial;
+    background: #F1F3F2 url('img/bgGral.jpg') center top no-repeat !important;
+    text-align: center;
+    font-weight: bold;
+
+  }
+
+  body h1{
+    text-align: center;
+  }*/
+  text {
+  fill: #333333;
+  }
+
+  rect {
+  cursor: pointer;
+  }
+
+
+
+.loader {
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  background: url('img/page-loader.gif') 50% 50% no-repeat rgb(249,249,249);
+}
+#elastic_lists {
+
+  text-align: center;
+}
+
+/*.filtros{
+
+  width: 1210px;
+}*/
+
+
+
+
+  </style>
+  <body> 
+    <div class="loader"></div>
+
+    <div class="wrap pt20 pb20">
+
+      <h1 class="txtC">Títulos Universitarios</h1>
+      <table>
+        <tr>
+          <td class="txtC"><label for="anio">Año</label><input id="anio" type="text"></td>
+          <td class="txtC"><label for="institucion">Intitución</label><input id="institucion" type="text"></td>
+          <td class="txtC"><label for="carrera">Carrera</label><input id="carrera" type="text"></td>
+          <td class="txtC"><label for="titulo">Título</label><input id="titulo" type="text"></td>
+        </tr>
+      </table>
+
+      <div class="txtC">
+        <div id="elastic_lists"></div>
+      </div>
+
+    </div>
+      
+
+    <script src="js/data/titulos.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript">
+    
+  // define columns for elastic lists (1 list per column)
+  var facets = [
+  {name: "anio",  type: "T"},
+  {name: "institucion",  type: "T"}, 
+  {name: "carrera",  type: "T"} ,
+  {name: "titulo",  type: "T"}
+
+  ]; 
+                        
+  var data = titulos;  
+
+  /* The dimensions to visualize, in order. */
+  var dims = [
+     "a",
+    "t",
+    "i",
+    "c"    
+   
+  ];
+
+  /* Sizing and scales. */
+  var w = 840;
+  var h = 220;
+  var color = "black"
+  
+              
+  /* The root panel. */
+  var vis = new pv.Panel()
+      .width(w)
+      .height(h)
+      .margin(10)
+      .bottom(40)
+      .canvas("visualization"); 
+      
+  var list = new Lists(facets, data, 600, 230, 10, 1, "elastic_lists", function() { vis.render(); }); 
+  list.canvas("elastic_lists").reset().render();
+  apariencia();
+
+
+
+//No muestro los que son demasiado pequenios
+
+                               
+  /* Rule and labels per dimension. */
+
+
+
+
+ var lista_carreras = [];
+ var lista_titulos  = [];
+  var lista_anios  = [];
+   var lista_instituciones  = [];
+for(var key in titulos) {
+    lista_carreras.push(titulos[key].carrera);
+    lista_titulos.push(titulos[key].titulo);
+    lista_anios.push(titulos[key].anio);
+    lista_instituciones.push(titulos[key].institucion);
+
+}
+
+
+lista_instituciones = lista_instituciones.remove_dups();
+lista_carreras=lista_carreras.remove_dups();
+lista_titulos=lista_titulos.remove_dups();
+lista_anios=lista_anios.remove_dups();
+
+
+
+
+
+ 
+
+  $( "#titulo" ).autocomplete({
+      source: lista_titulos,
+      select: function (a, b) {
+        $(this).val(b.item.value);
+       // console.log(b.item.value);
+        filtrado = $.grep( titulos, function( n, i ) {
+                  return n.titulo===b.item.value;
+              });
+        
+        facets[0].stale=true;
+        var lista = new Lists(facets, filtrado, 600, 230, 10, 1, "elastic_lists", function() { vis.render(); }); 
+        lista.canvas("elastic_lists").reset().render();
+        apariencia();
+        $("svg > g > g > g> text:contains("+ b.item.value +")").parent().prev().children().attr("fill","#6dbcdb");
+      }
+    });
+  $( "#carrera" ).autocomplete({
+      source: lista_carreras,
+      select: function (a, b) {
+        $(this).val(b.item.value);
+       // console.log(b.item.value);
+        filtrado = $.grep( titulos, function( n, i ) {
+                  return n.carrera===b.item.value;
+              });
+        
+        facets[0].stale=true;
+        var lista = new Lists(facets, filtrado, 600, 230, 10, 1, "elastic_lists", function() { vis.render(); }); 
+        lista.canvas("elastic_lists").reset().render();
+        apariencia();
+        $("svg > g > g > g> text:contains("+ b.item.value +")").parent().prev().children().attr("fill","#6dbcdb");
+      }
+    });
+  $( "#institucion" ).autocomplete({
+      source: lista_instituciones,
+      select: function (a, b) {
+        $(this).val(b.item.value);
+       // console.log(b.item.value);
+        filtrado = $.grep( titulos, function( n, i ) {
+                  return n.institucion===b.item.value;
+              });
+        
+        facets[0].stale=true;
+        var lista = new Lists(facets, filtrado, 600, 230, 10, 1, "elastic_lists", function() { vis.render(); }); 
+        lista.canvas("elastic_lists").reset().render();
+        apariencia();
+        $("svg > g > g > g> text:contains("+ b.item.value +")").parent().prev().children().attr("fill","#6dbcdb");
+      }
+    });
+  $( "#anio" ).autocomplete({
+      source: lista_anios,
+      select: function (a, b) {
+        $(this).val(b.item.value);
+       // console.log(b.item.value);
+        filtrado = $.grep( titulos, function( n, i ) {
+                  return n.anio===b.item.value;
+              });
+        
+        facets[0].stale=true;
+        var lista = new Lists(facets, filtrado, 600, 230, 10, 1, "elastic_lists", function() { vis.render(); }); 
+        lista.canvas("elastic_lists").reset().render();
+        apariencia();
+        $("svg > g > g > g> text:contains("+ b.item.value +")").parent().prev().children().attr("fill","#6dbcdb");
+      }
+    });
+    
+  
+
+    </script> 
+  </body>
+</html>
