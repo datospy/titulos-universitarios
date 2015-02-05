@@ -15,16 +15,31 @@ if (!Array.prototype.remove_dups) Array.prototype.remove_dups = function() {
   return result;
 }       
 
+String.prototype.initCap = function () {
+   return this.toLowerCase().replace(/(?:^|\s)[a-z]/g, function (m) {
+      return m.toUpperCase();
+   });
+};
 
 
  
+ function toCamelCase(sentenceCase) {
+    var out = "";
+    sentenceCase.split(" ").forEach(function (el, idx) {
+        var add = el.toLowerCase();
+        out += (idx === 0 ? add : add[0].toUpperCase() + add.slice(1));
+    });
+    return out;
+}
 
 
 apariencia = function () {
 
 
+
+
     $("svg > g > g > g > rect").filter(function () {
-              return $(this).attr("height") < 12;
+              return $(this).attr("height") < 26;
           }).each(function(index) {
 
             $( this ).parent().next().css('font-size', "0px");
@@ -33,7 +48,19 @@ apariencia = function () {
 
             ;});
 
-  
+
+
+    $("svg > g > g > g > rect").filter(function () {
+              return $(this).attr("height") > 26;
+          }).each(function(index) {
+
+            $( this ).parent().next().css('font-weight', "bold");
+            $( this ).parent().next().next().css('font-size', "8px");
+
+
+            ;});
+
+
 
 
 
@@ -46,10 +73,15 @@ apariencia = function () {
 
 
 $("svg > g > g:eq(0) > g > rect").hover( function() {
-     $(this).attr("fill","#fc4349")
+     $(this).attr("fill","#fc4349");
+
+
+     
   });
 $("svg > g > g:eq(1) > g > rect").hover( function() {
      $(this).attr("fill","#fd7277")
+
+
   });
 $("svg > g > g:eq(2) > g > rect").hover( function() {
      $(this).attr("fill","#fe9599")
@@ -65,7 +97,7 @@ $("svg > g > g:eq(3) > g > rect").hover( function() {
 
 $("svg > g > g > g > rect").hover( function() {
      $( this ).parent().next().css('font-size', "15px");
-            $( this ).parent().next().next().css('font-size', "15px");
+            $( this ).parent().next().next().css('font-size', "0px");
 
   }, function() {
             if ($(this).attr("height") < 12){
@@ -317,7 +349,7 @@ var Lists = function(facets, data, h, w, f, spacing, canvas, callback) {
       .left(function() {
         return /*10 +*/((w /*+ 10*/) * this.index );
       })
-      .width(w).height(h).fillStyle("black");
+      .width(w).height(h).fillStyle("white");
     
     // Column name labels
    /* 
@@ -436,11 +468,12 @@ Rojo:#fc4349
 
         var t = value.toString() + range;
         if( d.y > 0 ) { 
-          return t; 
+          //return camelize(t) ; 
+          return t.initCap() ; 
         }
       }); 
     
-    section.anchor("right").add(pv.Label).size(8)
+    section.anchor("bottom").add(pv.Label).size(12)
       .text(function(d) { 
       var percentage = (d.y/orig_bins[this.parent.parent.index][d.x].y)*100;
 
