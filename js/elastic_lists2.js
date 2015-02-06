@@ -13,6 +13,19 @@ if (!Array.prototype.remove_dups) Array.prototype.remove_dups = function() {
   }
 
   return result;
+}
+
+function TextAbstract(text, length) {
+    if (text == null) {
+        return "";
+    }
+    if (text.length <= length) {
+        return text;
+    }
+    text = text.substring(0, length);
+    last = text.lastIndexOf(" ");
+    text = text.substring(0, last);
+    return text + "...";
 }       
 
 String.prototype.initCap = function () {
@@ -469,7 +482,7 @@ Rojo:#fc4349
         var t = value.toString() + range;
         if( d.y > 0 ) { 
           //return camelize(t) ; 
-          return t.initCap() ; 
+          return TextAbstract(t.initCap(), 30)  ; 
         }
       }); 
     
