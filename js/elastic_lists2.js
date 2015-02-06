@@ -52,7 +52,7 @@ apariencia = function () {
 
 
     $("svg > g > g > g > rect").filter(function () {
-              return $(this).attr("height") < 26;
+              return $(this).attr("height") < 14;
           }).each(function(index) {
 
             $( this ).parent().next().css('font-size', "0px");
@@ -65,7 +65,7 @@ apariencia = function () {
 
 
     $("svg > g > g > g > rect").filter(function () {
-              return $(this).attr("height") >= 26;
+              return $(this).attr("height") >= 14;
           }).each(function(index) {
 
             $( this ).parent().next().css('font-weight', "bold");
@@ -84,29 +84,42 @@ apariencia = function () {
     $("svg > g > g:eq(3) > g > rect").attr("fill","#b3e0f2");
 
 
+$("svg > g > g > g > rect").hover( function() {
+         $(this).attr("fill","#fc4349");
+         $(this).parent().next().children().attr("fill", "white");
+         $(this).parent().next().next().children().attr("fill", "white");
 
+      }, function (){
+        $(this).parent().next().children().attr("fill", "#333333");
+         $(this).parent().next().next().children().attr("fill", "#333333");
+      });
 
     $("svg > g > g:eq(0) > g > rect").hover( function() {
          $(this).attr("fill","#fc4349");
+         
+
       });
     $("svg > g > g:eq(1) > g > rect").hover( function() {
-         $(this).attr("fill","#fd7277")
+         $(this).attr("fill","#fd7277");
+          $(this).attr("color","white");
       });
     $("svg > g > g:eq(2) > g > rect").hover( function() {
-         $(this).attr("fill","#fe9599")
+         $(this).attr("fill","#fe9599");
+          $(this).attr("color","white");
       });
     $("svg > g > g:eq(3) > g > rect").hover( function() {
-         $(this).attr("fill","#feb0b3")
+         $(this).attr("fill","#feb0b3");
+          $(this).attr("color","white");
       });
 
-      if($("svg > g > g:eq(0) > g > rect").length == 1) { $("svg > g > g:eq(0) > g > rect").attr("fill","#fc4349") }
-      if($("svg > g > g:eq(1) > g > rect").length == 1) { $("svg > g > g:eq(1) > g > rect").attr("fill","#fd7277") }
-      if($("svg > g > g:eq(2) > g > rect").length == 1) { $("svg > g > g:eq(2) > g > rect").attr("fill","#fe9599") }
-      if($("svg > g > g:eq(3) > g > rect").length == 1) { $("svg > g > g:eq(3) > g > rect").attr("fill","#feb0b3") }
+      if($("svg > g > g:eq(0) > g > rect").length == 1) { $("svg > g > g:eq(0) > g > rect").attr("fill","#fc4349");$("svg > g > g:eq(0) > g > rect").parent().next().next().children().attr("fill", "white");$("svg > g > g:eq(0) > g > rect").parent().next().children().attr("fill", "white"); }
+      if($("svg > g > g:eq(1) > g > rect").length == 1) { $("svg > g > g:eq(1) > g > rect").attr("fill","#fd7277");$("svg > g > g:eq(1) > g > rect").parent().next().next().children().attr("fill", "white");$("svg > g > g:eq(1) > g > rect").parent().next().children().attr("fill", "white");  }
+      if($("svg > g > g:eq(2) > g > rect").length == 1) { $("svg > g > g:eq(2) > g > rect").attr("fill","#fe9599");$("svg > g > g:eq(2) > g > rect").parent().next().next().children().attr("fill", "white");$("svg > g > g:eq(2) > g > rect").parent().next().children().attr("fill", "white");  }
+      if($("svg > g > g:eq(3) > g > rect").length == 1) { $("svg > g > g:eq(3) > g > rect").attr("fill","#feb0b3");$("svg > g > g:eq(3) > g > rect").parent().next().next().children().attr("fill", "white");$("svg > g > g:eq(3) > g > rect").parent().next().children().attr("fill", "white");  }
 
       $("svg > g > g > g > rect").hover( function() {
-           $( this ).parent().next().css('font-size', "15px");
-                  $( this ).parent().next().next().css('font-size', "0px");
+                $( this ).parent().next().css('font-size', "15px");
+                  $( this ).parent().next().next().css('font-size', "11px");
 
         }, function() {
                   if ($(this).attr("height") < 12){
@@ -115,13 +128,24 @@ apariencia = function () {
 
                   else{
 
-                     $( this ).parent().next().css('font-size', "12px");
-                  $( this ).parent().next().next().css('font-size', "12px");
+                     $( this ).parent().next().css('font-size', "11px");
+                  $( this ).parent().next().next().css('font-size', "11px");
                   }
 
 
         });
 
+      var anio= $("svg > g > g:eq(0) > g > rect").length; 
+      var institucion= $("svg > g > g:eq(1) > g > rect").length; 
+      var carrera= $("svg > g > g:eq(2) > g > rect").length; 
+      var titulo= $("svg > g > g:eq(3) > g > rect").length; 
+
+
+
+      $("#total_anio").html(anio);
+      $("#total_institucion").html(institucion);
+      $("#total_carrera").html(carrera);
+      $("#total_titulo").html(titulo);
 
 
 }                   
@@ -403,11 +427,7 @@ Rojo:#fc4349
 
          })
       .event("mouseout", function() { this.active(false); this.render(); apariencia();
-       /* $("svg > g > g:eq( 1 ) > g > rect ").attr("fill","#bbbbbb");
-      $("svg > g > g:eq( 3 ) > g > rect ").attr("fill","#cccccc");
-      $("svg > g > g:eq( 5 ) > g > rect ").attr("fill","#dddddd");
-      $("svg > g > g:eq( 7 ) > g > rect ").attr("fill","#eeeeee");*/
-
+     
 
 
 
@@ -436,28 +456,13 @@ Rojo:#fc4349
         
 
 
-//No muestro los que son demasiado pequenios
-     /*   $("svg > g > g > g > rect").filter(function () {
-              return $(this).attr("height") < 12;
-          }).each(function(index) {
-            $( this ).hide();});*/
-
-            /*$("svg > g > g:eq( 1 ) > g > rect ").attr("fill","#bbbbbb");
-      $("svg > g > g:eq( 3 ) > g > rect ").attr("fill","#cccccc");
-      $("svg > g > g:eq( 5 ) > g > rect ").attr("fill","#dddddd");
-      $("svg > g > g:eq( 7 ) > g > rect ").attr("fill","#eeeeee");
-
-      $("svg > g > g > g> text:contains('%')").css("font-size","8px")*/
-
-
-
 
         if(callback) {
           callback();
         };         
       });                                     
     
-    section.anchor("left").add(pv.Label)
+    section.anchor("left").add(pv.Label).size(12).fillStyle("#333333")
       .text(function(d) {
 
         var value = d.x;
@@ -475,11 +480,11 @@ Rojo:#fc4349
         var t = value.toString() + range;
         if( d.y > 0 ) { 
           //return camelize(t) ; 
-          return TextAbstract(t.initCap(), 30) /*+ " - \n" + d.y*/ ; 
+          return TextAbstract(t.initCap(), 27) /*+ " - \n" + d.y*/ ; 
         }
       }); 
     
-    section.anchor("bottom").left(14).add(pv.Label).size(12)
+    section.anchor("right").add(pv.Label).size(10).fillStyle("#333333")
       .text(function(d) { 
       var percentage = (d.y/orig_bins[this.parent.parent.index][d.x].y)*100;
 
