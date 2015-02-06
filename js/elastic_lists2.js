@@ -57,6 +57,7 @@ apariencia = function () {
 
             $( this ).parent().next().css('font-size', "0px");
             $( this ).parent().next().next().css('font-size', "0px");
+            $( this ).parent().next().css('font-weight', "bold");
 
 
             ;});
@@ -353,7 +354,7 @@ var Lists = function(facets, data, h, w, f, spacing, canvas, callback) {
   this.render = function() {       
          
     var outside_panel = new pv.Panel()
-      .width((w /*+ 10*/) * y.length /*+ 10*/).height(h + 30).fillStyle("white")
+      .width((w /*+ 10*/) * y.length /*+ 10*/).height(h + 10).fillStyle("white")
       .canvas(canvas);                    
     
     var list = outside_panel.add(pv.Panel)
