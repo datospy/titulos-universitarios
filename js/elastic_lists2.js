@@ -65,11 +65,11 @@ apariencia = function () {
 
 
     $("svg > g > g > g > rect").filter(function () {
-              return $(this).attr("height") > 26;
+              return $(this).attr("height") >= 26;
           }).each(function(index) {
 
             $( this ).parent().next().css('font-weight', "bold");
-            $( this ).parent().next().next().css('font-size', "8px");
+            $( this ).parent().next().next().css('font-size', "10px");
 
 
             ;});
@@ -86,49 +86,41 @@ apariencia = function () {
 
 
 
-$("svg > g > g:eq(0) > g > rect").hover( function() {
-     $(this).attr("fill","#fc4349");
+    $("svg > g > g:eq(0) > g > rect").hover( function() {
+         $(this).attr("fill","#fc4349");
+      });
+    $("svg > g > g:eq(1) > g > rect").hover( function() {
+         $(this).attr("fill","#fd7277")
+      });
+    $("svg > g > g:eq(2) > g > rect").hover( function() {
+         $(this).attr("fill","#fe9599")
+      });
+    $("svg > g > g:eq(3) > g > rect").hover( function() {
+         $(this).attr("fill","#feb0b3")
+      });
 
-
-     
-  });
-$("svg > g > g:eq(1) > g > rect").hover( function() {
-     $(this).attr("fill","#fd7277")
-
-
-  });
-$("svg > g > g:eq(2) > g > rect").hover( function() {
-     $(this).attr("fill","#fe9599")
-  });
-$("svg > g > g:eq(3) > g > rect").hover( function() {
-     $(this).attr("fill","#feb0b3")
-  });
-
- if($("svg > g > g:eq(0) > g > rect").length == 1) { $("svg > g > g:eq(0) > g > rect").attr("fill","#fc4349") }
-  if($("svg > g > g:eq(1) > g > rect").length == 1) { $("svg > g > g:eq(1) > g > rect").attr("fill","#fd7277") }
-    if($("svg > g > g:eq(2) > g > rect").length == 1) { $("svg > g > g:eq(2) > g > rect").attr("fill","#fe9599") }
+      if($("svg > g > g:eq(0) > g > rect").length == 1) { $("svg > g > g:eq(0) > g > rect").attr("fill","#fc4349") }
+      if($("svg > g > g:eq(1) > g > rect").length == 1) { $("svg > g > g:eq(1) > g > rect").attr("fill","#fd7277") }
+      if($("svg > g > g:eq(2) > g > rect").length == 1) { $("svg > g > g:eq(2) > g > rect").attr("fill","#fe9599") }
       if($("svg > g > g:eq(3) > g > rect").length == 1) { $("svg > g > g:eq(3) > g > rect").attr("fill","#feb0b3") }
 
-$("svg > g > g > g > rect").hover( function() {
-     $( this ).parent().next().css('font-size', "15px");
-            $( this ).parent().next().next().css('font-size', "0px");
+      $("svg > g > g > g > rect").hover( function() {
+           $( this ).parent().next().css('font-size', "15px");
+                  $( this ).parent().next().next().css('font-size', "0px");
 
-  }, function() {
-            if ($(this).attr("height") < 12){
-            $( this ).parent().next().css('font-size', "0px");
-            $( this ).parent().next().next().css('font-size', "0px");}
+        }, function() {
+                  if ($(this).attr("height") < 12){
+                  $( this ).parent().next().css('font-size', "0px");
+                  $( this ).parent().next().next().css('font-size', "0px");}
 
-            else{
+                  else{
 
-               $( this ).parent().next().css('font-size', "12px");
-            $( this ).parent().next().next().css('font-size', "12px");
-            }
-
-
-  });
+                     $( this ).parent().next().css('font-size', "12px");
+                  $( this ).parent().next().next().css('font-size', "12px");
+                  }
 
 
-
+        });
 
 
 
@@ -483,11 +475,11 @@ Rojo:#fc4349
         var t = value.toString() + range;
         if( d.y > 0 ) { 
           //return camelize(t) ; 
-          return TextAbstract(t.initCap(), 30)  ; 
+          return TextAbstract(t.initCap(), 30) /*+ " - \n" + d.y*/ ; 
         }
       }); 
     
-    section.anchor("bottom").add(pv.Label).size(12)
+    section.anchor("bottom").left(14).add(pv.Label).size(12)
       .text(function(d) { 
       var percentage = (d.y/orig_bins[this.parent.parent.index][d.x].y)*100;
 
