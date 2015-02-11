@@ -83,7 +83,8 @@ apariencia = function () {
     $("svg > g > g:eq(2) > g > rect").attr("fill","#92cee4");
     $("svg > g > g:eq(3) > g > rect").attr("fill","#b3e0f2");
 
-
+    $("svg > g > g > g > rect").parent().next().children().attr("fill", "#333333");
+    $("svg > g > g > g > rect").parent().next().next().children().attr("fill", "#333333");
 $("svg > g > g > g > rect").hover( function() {
          $(this).attr("fill","#fc4349");
          $(this).parent().next().children().attr("fill", "white");
@@ -122,7 +123,7 @@ $("svg > g > g > g > rect").hover( function() {
                   $( this ).parent().next().next().css('font-size', "11px");
 
         }, function() {
-                  if ($(this).attr("height") < 12){
+                  if ($(this).attr("height") < 14){
                   $( this ).parent().next().css('font-size', "0px");
                   $( this ).parent().next().next().css('font-size', "0px");}
 
@@ -435,6 +436,8 @@ Rojo:#fc4349
       .event("click", function(d) {                          
 
         // Make sure we properly set a selection for each element in the bin.
+
+          
         orig_bins[this.parent.parent.index][d.x].bins.forEach(function(b,i) { 
           col_selections[this.parent.parent.index][b[facets[this.parent.parent.index]["name"]]] = 
             !bin_selections[this.parent.parent.index][d.x];  

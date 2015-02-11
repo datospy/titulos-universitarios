@@ -142,7 +142,7 @@
       .bottom(40)
       .canvas("visualization"); 
       
-  var list = new Lists(facets, data, 600, 230, 2, 1, "elastic_lists", function() { vis.render(); }); 
+  var list = new Lists(facets, data, 600, 230, 0, 0, "elastic_lists", function() { vis.render(); }); 
   list.canvas("elastic_lists").reset().render();
   apariencia();
 
@@ -190,7 +190,7 @@ lista_anios=lista_anios.remove_dups();
               });
         
         facets[0].stale=true;
-        var lista = new Lists(facets, filtrado, 600, 230, 2, 1, "elastic_lists", function() { vis.render(); }); 
+        var lista = new Lists(facets, filtrado, 600, 230, 2, 10, "elastic_lists", function() { vis.render(); }); 
         lista.canvas("elastic_lists").reset().render();
         apariencia();
         $("svg > g > g > g> text:contains("+ b.item.value +")").parent().prev().children().attr("fill","#6dbcdb");
@@ -206,7 +206,7 @@ lista_anios=lista_anios.remove_dups();
               });
         
         facets[0].stale=true;
-        var lista = new Lists(facets, filtrado, 600, 230, 2, 1, "elastic_lists", function() { vis.render(); }); 
+        var lista = new Lists(facets, filtrado, 600, 230, 20, 10, "elastic_lists", function() { vis.render(); }); 
         lista.canvas("elastic_lists").reset().render();
         apariencia();
         $("svg > g > g > g> text:contains("+ b.item.value +")").parent().prev().children().attr("fill","#6dbcdb");
