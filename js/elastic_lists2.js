@@ -91,10 +91,10 @@ $("svg > g > g > g > rect").hover( function() {
           $(this).attr("color","white");
       });
 
-      if($("svg > g > g:eq(0) > g > rect").length == 1) { $("svg > g > g:eq(0) > g > rect").attr("fill","#fc4349");$("svg > g > g:eq(0) > g > rect").parent().next().next().children().attr("fill", "white");$("svg > g > g:eq(0) > g > rect").parent().next().children().attr("fill", "white"); }
-      if($("svg > g > g:eq(1) > g > rect").length == 1) { $("svg > g > g:eq(1) > g > rect").attr("fill","#fd7277");$("svg > g > g:eq(1) > g > rect").parent().next().next().children().attr("fill", "white");$("svg > g > g:eq(1) > g > rect").parent().next().children().attr("fill", "white");  }
-      if($("svg > g > g:eq(2) > g > rect").length == 1) { $("svg > g > g:eq(2) > g > rect").attr("fill","#fe9599");$("svg > g > g:eq(2) > g > rect").parent().next().next().children().attr("fill", "white");$("svg > g > g:eq(2) > g > rect").parent().next().children().attr("fill", "white");  }
-      if($("svg > g > g:eq(3) > g > rect").length == 1) { $("svg > g > g:eq(3) > g > rect").attr("fill","#feb0b3");$("svg > g > g:eq(3) > g > rect").parent().next().next().children().attr("fill", "white");$("svg > g > g:eq(3) > g > rect").parent().next().children().attr("fill", "white");  }
+      if($("svg > g > g:eq(0) > g > rect").length == 1) { $("svg > g > g:eq(0) > g > rect").attr("fill","#fc4349");$("svg > g > g:eq(0) > g > rect").parent().next().next().children().attr("fill", "white"); ;$("svg > g > g:eq(0) > g > rect").parent().next().children().attr("fill", "white").css('font-size', "17px"); }
+      if($("svg > g > g:eq(1) > g > rect").length == 1) { $("svg > g > g:eq(1) > g > rect").attr("fill","#fd7277");$("svg > g > g:eq(1) > g > rect").parent().next().next().children().attr("fill", "white");$("svg > g > g:eq(1) > g > rect").parent().next().children().attr("fill", "white").css('font-size', "17px");  }
+      if($("svg > g > g:eq(2) > g > rect").length == 1) { $("svg > g > g:eq(2) > g > rect").attr("fill","#fe9599");$("svg > g > g:eq(2) > g > rect").parent().next().next().children().attr("fill", "white");$("svg > g > g:eq(2) > g > rect").parent().next().children().attr("fill", "white").css('font-size', "17px");  }
+      if($("svg > g > g:eq(3) > g > rect").length == 1) { $("svg > g > g:eq(3) > g > rect").attr("fill","#feb0b3");$("svg > g > g:eq(3) > g > rect").parent().next().next().children().attr("fill", "white");$("svg > g > g:eq(3) > g > rect").parent().next().children().attr("fill", "white").css('font-size', "17px");  }
 
       
 
@@ -114,7 +114,7 @@ $("svg > g > g > g > rect").hover( function() {
               return $(this).attr("height") > 14;
           }).each(function(index) {
 
-            $( this ).parent().next().css('font-size', "11px");
+            $( this ).parent().next().css('font-size', "14px");
             $( this ).parent().next().next().css('font-size', "11px");
             $( this ).parent().next().css('font-weight', "bold");
 
@@ -139,7 +139,7 @@ $("svg > g > g > g > rect").hover( function() {
 
 
       $("svg > g > g > g > rect").hover( function() {
-                $( this ).parent().next().css('font-size', "15px");
+                $( this ).parent().next().css('font-size', "17px");
                   $( this ).parent().next().next().css('font-size', "11px");
 
         }, function() {
@@ -149,7 +149,7 @@ $("svg > g > g > g > rect").hover( function() {
 
                   else{
 
-                     $( this ).parent().next().css('font-size', "11px");
+                     $( this ).parent().next().css('font-size', "14px");
                   $( this ).parent().next().next().css('font-size', "11px");
                   }
 
@@ -506,7 +506,7 @@ Rojo:#fc4349
         var t = value.toString() + range;
         if( d.y > 0 ) { 
           //return camelize(t) ; 
-          return TextAbstract(t.initCap(), 27) /*+ " - \n" + d.y*/ ; 
+          return TextAbstract(t.initCap(), 25) /*+ " - \n" + d.y*/ ; 
         }
       }); 
     
