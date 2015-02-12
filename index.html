@@ -25,17 +25,12 @@
 
   <style type="text/css">
 
- /* body{
-    font-family: arial;
-    background: #F1F3F2 url('img/bgGral.jpg') center top no-repeat !important;
-    text-align: center;
-    font-weight: bold;
+  body{
+    font-family: 'bignoodle-titling';
+  
 
   }
 
-  body h1{
-    text-align: center;
-  }*/
 
 
   text {
@@ -142,7 +137,7 @@
       .bottom(40)
       .canvas("visualization"); 
       
-  var list = new Lists(facets, data, 600, 230, 0, 0, "elastic_lists", function() { vis.render(); }); 
+  var list = new Lists(facets, data, 600, 230, 0, 0.1 , "elastic_lists", function() { vis.render(); }); 
   list.canvas("elastic_lists").reset().render();
   apariencia();
 

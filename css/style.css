@@ -4,6 +4,9 @@
 @import url(reset.css);
 @import url(mood.css);
 @import url(formularios.css);
+
+
+
 .multicolumna {
   -moz-column-width: 20em;
   -moz-column-gap: 20px;

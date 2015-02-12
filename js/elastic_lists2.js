@@ -51,28 +51,6 @@ apariencia = function () {
 
 
 
-    $("svg > g > g > g > rect").filter(function () {
-              return $(this).attr("height") < 14;
-          }).each(function(index) {
-
-            $( this ).parent().next().css('font-size', "0px");
-            $( this ).parent().next().next().css('font-size', "0px");
-            $( this ).parent().next().css('font-weight', "bold");
-
-
-            ;});
-
-
-
-    $("svg > g > g > g > rect").filter(function () {
-              return $(this).attr("height") >= 14;
-          }).each(function(index) {
-
-            $( this ).parent().next().css('font-weight', "bold");
-            $( this ).parent().next().next().css('font-size', "10px");
-
-
-            ;});
 
 
 
@@ -117,6 +95,48 @@ $("svg > g > g > g > rect").hover( function() {
       if($("svg > g > g:eq(1) > g > rect").length == 1) { $("svg > g > g:eq(1) > g > rect").attr("fill","#fd7277");$("svg > g > g:eq(1) > g > rect").parent().next().next().children().attr("fill", "white");$("svg > g > g:eq(1) > g > rect").parent().next().children().attr("fill", "white");  }
       if($("svg > g > g:eq(2) > g > rect").length == 1) { $("svg > g > g:eq(2) > g > rect").attr("fill","#fe9599");$("svg > g > g:eq(2) > g > rect").parent().next().next().children().attr("fill", "white");$("svg > g > g:eq(2) > g > rect").parent().next().children().attr("fill", "white");  }
       if($("svg > g > g:eq(3) > g > rect").length == 1) { $("svg > g > g:eq(3) > g > rect").attr("fill","#feb0b3");$("svg > g > g:eq(3) > g > rect").parent().next().next().children().attr("fill", "white");$("svg > g > g:eq(3) > g > rect").parent().next().children().attr("fill", "white");  }
+
+      
+
+
+    $("svg > g > g > g > rect").each(function(index) {
+
+            $( this ).parent().next().css('font-weight', "bold");
+            $( this ).parent().next().css('font-size', "bold");
+            $( this ).parent().next().next().css('font-size', "11px");
+
+
+            ;});
+
+
+
+    $("svg > g > g > g > rect").filter(function () {
+              return $(this).attr("height") > 14;
+          }).each(function(index) {
+
+            $( this ).parent().next().css('font-size', "11px");
+            $( this ).parent().next().next().css('font-size', "11px");
+            $( this ).parent().next().css('font-weight', "bold");
+
+
+            ;});
+
+    
+    $("svg > g > g > g > rect").filter(function () {
+              return $(this).attr("height") < 14;
+          }).each(function(index) {
+
+            $( this ).parent().next().css('font-size', "0px");
+            $( this ).parent().next().next().css('font-size', "0px");
+            $( this ).parent().next().css('font-weight', "bold");
+
+
+            ;});
+
+
+
+
+
 
       $("svg > g > g > g > rect").hover( function() {
                 $( this ).parent().next().css('font-size', "15px");
@@ -371,16 +391,16 @@ var Lists = function(facets, data, h, w, f, spacing, canvas, callback) {
   this.render = function() {       
          
     var outside_panel = new pv.Panel()
-      .width((w /*+ 10*/) * y.length /*+ 10*/).height(h + 10).fillStyle("white")
+      .width((w + 10) * y.length + 10).height(h + 10).fillStyle("white") //color de borde arriba abajo
       .canvas(canvas);                    
     
     var list = outside_panel.add(pv.Panel)
       .data(bins) 
       .top(5)
       .left(function() {
-        return /*10 +*/((w /*+ 10*/) * this.index );
+        return 10 +((w + 10) * this.index );
       })
-      .width(w).height(h).fillStyle("white");
+      .width(w).height(h).fillStyle("#333333"); //color de lineas separadoras
     
     // Column name labels
    /* 
@@ -455,6 +475,9 @@ Rojo:#fc4349
 
         list.render(); 
         apariencia();
+        apariencia();
+        apariencia();
+
 
         
 
