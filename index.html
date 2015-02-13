@@ -151,7 +151,7 @@
 
 
 
- var lista_carreras = [];
+/* var lista_carreras = [];
  var lista_titulos  = [];
   var lista_anios  = [];
    var lista_instituciones  = [];
@@ -167,31 +167,79 @@ for(var key in titulos) {
 lista_instituciones = lista_instituciones.remove_dups();
 lista_carreras=lista_carreras.remove_dups();
 lista_titulos=lista_titulos.remove_dups();
-lista_anios=lista_anios.remove_dups();
+lista_anios=lista_anios.remove_dups();*/
 
+jQuery.fn.d3Click = function () {
+  this.each(function (i, e) {
+    var evt = document.createEvent("MouseEvents");
+    evt.initMouseEvent("click", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
 
+    e.dispatchEvent(evt);
+  });
+};
 
+addId(); 
 
+listar = function(v_n){
+    v_g = document.getElementsByTagName('g')[0];
+    var titulo1 = [];
+    var v_hijos = v_g.children[v_n].children;
+    var v_flag = false;
+    for(var cant1 =0;  cant1<v_hijos.length;cant1++){
+        if(v_hijos[cant1].children[0].tagName=="text" && !v_flag){
+            titulo1.push(v_hijos[cant1].children[0].innerHTML);
+            v_flag = true;
+        }else if(v_hijos[cant1].children[0].tagName=="rect"){
+            v_flag = false;
+        }
+    }
+    return titulo1;
+};
+$( "#titulo" ).on( "focus", function( event, ui ) {$('#titulo').autocomplete("option", { source: listar(7) });} );
+$( "#titulo" ).autocomplete({
+      select: function (a, b) {
+          $("#"+b.item.value.replace(/(\s+|\.|\/)+/g, '').toUpperCase()).d3Click();
+      }
+ });
+ $( "#carrera" ).on( "focus", function( event, ui ) {$('#carrera').autocomplete("option", { source: listar(5) });} );
+ $( "#carrera" ).autocomplete({
+      select: function (a, b) {
+          $("#"+b.item.value.replace(/(\s+|\.|\/)+/g, '').toUpperCase()).d3Click();
+      }
+ });
+ $( "#institucion" ).on( "focus", function( event, ui ) {$('#institucion').autocomplete("option", { source: listar(3) });} );
+ $( "#institucion" ).autocomplete({
+      select: function (a, b) {
+          $("#"+b.item.value.replace(/(\s+|\.|\/)+/g, '').toUpperCase()).d3Click();
+      }
+ });
+ $( "#anio" ).on( "focus", function( event, ui ) {$('#anio').autocomplete("option", { source: listar(1) });} );
+ $( "#anio" ).autocomplete({
+      select: function (a, b) {
+          $("#"+b.item.value.replace(/(\s+|\.|\/)+/g, '').toUpperCase()).d3Click();
+      }
+ });
 
- 
-
-  $( "#titulo" ).autocomplete({
+   /*$( "#titulo" ).autocomplete({
       source: lista_titulos,
       select: function (a, b) {
         $(this).val(b.item.value);
-       // console.log(b.item.value);
-        filtrado = $.grep( titulos, function( n, i ) {
-                  return n.titulo===b.item.value;
-              });
-        
+       console.log(b.item.value);
+       filtrado = $.grep( titulos, function( n, i ) {
+                return n.titulo===b.item.value;
+            });
+              
+       
+       
+
         facets[0].stale=true;
         var lista = new Lists(facets, filtrado, 600, 230, 2, 10, "elastic_lists", function() { vis.render(); }); 
         lista.canvas("elastic_lists").reset().render();
-        apariencia();
+        apariencia();lista_instituciones
         $("svg > g > g > g> text:contains("+ b.item.value +")").parent().prev().children().attr("fill","#6dbcdb");
       }
     });
-  $( "#carrera" ).autocomplete({
+ $( "#carrera" ).autocomplete({
       source: lista_carreras,
       select: function (a, b) {
         $(this).val(b.item.value);
@@ -239,7 +287,7 @@ lista_anios=lista_anios.remove_dups();
         $("svg > g > g > g> text:contains("+ b.item.value +")").parent().prev().children().attr("fill","#6dbcdb");
       }
     });
-    
+    */
   
 
     </script> 

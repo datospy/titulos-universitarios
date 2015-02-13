@@ -326,12 +326,11 @@ var Lists = function(facets, data, h, w, f, spacing, canvas, callback) {
                   bin.push(b);
                 });
 
-                //utilizamos el campo cantidad de titulos para multiplicar por la cantidad de registros.
+                //utilizamos el campo cantidad de titulop ara multiplicar por la cantidad de registros.
                 var sum = 0;        
                 for(var cant =0;  cant<bin.length;cant++){
                   sum = sum + bin[cant]["cantidad_titulos"];
                 }
-
 
                 bin.y = sum;//bin.length;
               });   
@@ -453,11 +452,9 @@ Rojo:#fc4349
 
 
        })
-      .event("click", function(d) {                          
-
+      .event("click", function(d) { 
         // Make sure we properly set a selection for each element in the bin.
-
-          
+          $("*").unbind("click");
         orig_bins[this.parent.parent.index][d.x].bins.forEach(function(b,i) { 
           col_selections[this.parent.parent.index][b[facets[this.parent.parent.index]["name"]]] = 
             !bin_selections[this.parent.parent.index][d.x];  
@@ -484,9 +481,31 @@ Rojo:#fc4349
 
 
         if(callback) {
-          callback();
-        };         
-      });                                     
+          callback();   
+        }; 
+        
+        
+        
+        addId();
+      }); 
+      
+      /*
+       * agrega id a todos los elementos, de esta manera es posible capturarlo con javascript para simular un click
+       */
+      
+      addId = function(){
+            var v_g = document.getElementsByTagName('g');     
+            for(var cant =0;  cant<v_g.length;cant++){
+                var v_hijos = v_g[cant].children;
+                if(v_hijos[0].tagName=="rect"){
+                    aux = v_hijos[0];
+                }else if(aux != null && v_hijos[0].tagName=="text"){
+                   // console.log(aux);
+                    aux.id = v_hijos[0].innerHTML.replace(/(\s+|\.|\/)+/g, '').toUpperCase();
+                    aux = null;
+                }
+            }
+        }
     
     section.anchor("left").add(pv.Label).size(12).fillStyle("#333333")
       .text(function(d) {
