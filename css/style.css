@@ -4,9 +4,6 @@
 @import url(reset.css);
 @import url(mood.css);
 @import url(formularios.css);
-
-
-
 .multicolumna {
   -moz-column-width: 20em;
   -moz-column-gap: 20px;
@@ -15,13 +12,9 @@
   -webkit-column-rule: 1px solid #EEE;
   -moz-column-rule: 1px solid #EEE; }
 
-html, body {
-  height: 100%; }
-
-body {
+body, html {
   font: 12px/1.5 'Arial', sans-serif;
-  color: #333;
-  text-align: center; }
+  color: #333; }
 
 p {
   margin-bottom: 12px;
@@ -32,7 +25,7 @@ strong, b {
 
 hr {
   clear: both;
-  margin: 5px 0;
+  margin: 20px 0;
   height: 1px;
   border: 0;
   background-color: #CCC; }
@@ -43,15 +36,15 @@ em, i {
 
 h1, h2, h3, h4, h5, h6 {
   line-height: 1.5;
-  font-weight: bold;
+  font-weight: normal;
   color: #333;
   letter-spacing: 0;
   font-family: 'Arial', sans-serif; }
 
 h1 {
-  font-size: 34px;
+  font-size: 22px;
   margin-bottom: 11px;
-  border-bottom: 1px solid #CCC; }
+  font-weight: bold; }
 
 h2 {
   font-size: 20px;
@@ -73,13 +66,6 @@ h6 {
   font-size: 12px;
   margin-bottom: 6px; }
 
-h1 a:link, h1 a:visited, h2 a:link, h2 a:visited, h3 a:link, h3 a:visited, h4 a:link, h4 a:visited, h5 a:link, h5 a:visited, h6 a:link, h6 a:visited {
-  color: #333;
-  text-decoration: none; }
-h1 a:hover, h1 a:active, h2 a:hover, h2 a:active, h3 a:hover, h3 a:active, h4 a:hover, h4 a:active, h5 a:hover, h5 a:active, h6 a:hover, h6 a:active {
-  color: #000;
-  text-decoration: underline; }
-
 ul {
   padding: 10px 40px; }
   ul li {
@@ -94,7 +80,7 @@ ul {
         margin-right: 5px; }
 
 a:link, a:visited {
-  color: #265CFF; }
+  color: #333; }
 
 a:active, a:hover {
   text-decoration: underline; }
@@ -141,9 +127,9 @@ a:active, a:hover {
   position: absolute; }
 
 table {
-  width: 100%;
   line-height: 1.2em;
-  overflow-x: scroll; }
+  overflow-x: scroll;
+  font-family: 'Arial', sans-serif; }
   table td, table th {
     padding: 10px;
     word-wrap: break-word; }
@@ -167,21 +153,79 @@ table {
         color: #FFF; }
       table tfoot tr td a.activo {
         color: #FFF; }
-  table.secundaria thead {
-    background-color: #DDD;
-    color: #666;
-    font-style: italic; }
-  table.secundaria tbody td {
-    border-bottom: 1px solid #DDD; }
-  table.secundaria tbody .item td {
-    background-color: #EEE; }
 
 /*---------------------------------------------------*/
 /*===================================================      
                     CONTENIDO                                           
 ===================================================*/
+.tips td {
+  width: 265px;
+  padding: 10px 10px 10px 70px; }
+  .tips td:nth-child(1) {
+    background: #EEE url("../img/icon-1.png") no-repeat 10px 10px; }
+  .tips td:nth-child(2) {
+    background: #EEE url("../img/icon-2.png") no-repeat 10px 10px; }
+  .tips td:nth-child(3) {
+    background-color: #EEE;
+    width: 250px;
+    padding: 10px;
+    vertical-align: middle; }
+  .tips td a:link, .tips td a:visited {
+    padding: 10px;
+    background-color: #666;
+    color: #FFF;
+    text-decoration: none;
+    -webkit-border-radius: 3px 3px 3px 3px;
+    -moz-border-radius: 3px 3px 3px 3px;
+    border-radius: 3px 3px 3px 3px; }
+  .tips td a:hover, .tips td a:active {
+    background-color: #333; }
+
+rect {
+  cursor: pointer; }
+
+.loader {
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  background: url("../img/page-loader.gif") 50% 50% no-repeat #f9f9f9; }
+
 #elastic_lists {
-  margin: auto; }
+  text-align: center; }
+
+.total {
+  font-weight: bold; }
+
+#overlay {
+  filter: alpha(opacity=0);
+  -moz-opacity: 0;
+  -khtml-opacity: 0;
+  opacity: 0;
+  background-color: #fff;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: 50;
+  width: 100%;
+  height: 100%;
+  display: none; }
+
+#info {
+  margin: auto;
+  padding: 20px;
+  width: 400px;
+  background: #fff;
+  box-shadow: 0 4px 16px #999;
+  z-index: 51;
+  border: 1px  solid #acacac;
+  position: absolute;
+  display: none; }
+
+#results {
+  width: 400px; }
 
 /*===================================================            
                      BOTTOM                                                     

@@ -19,68 +19,59 @@
       $(window).load(function() {
         $(".loader").fadeOut("slow");
       })
+
+    $(document).ready(function(){
+      $("#open").click(function(){
+        $('#overlay, #info').animate({'opacity':'0.7'}, 300, 'linear');
+          $('#info').animate({'opacity':'1.00'},300,'linear');
+          $('#overlay, #info').css('display','block');
+          $('#info').css({'left':(($(document).width()/2)-($('#info').width()/2))});
+          $('#info').css({'top':(($(document).height()/3)-($('#info').height()/3)-50)});
+        });
+      
+      $('#close').click(function(){
+        $('#overlay, #info').animate({'opacity':'0'}, 300, 'linear', function(){
+          $('#overlay, #info').css('display','none');
+        });
+      });
+    });
     </script>
 
   </head>
 
-  <style type="text/css">
-
-  body{
-    font-family: 'bignoodle-titling';
-  
-
-  }
-
-
-
-  text {
-  /*fill: #333333;*/
-
-  }
-
-  rect {
-  cursor: pointer;
-  }
-
-
-
-.loader {
-  position: fixed;
-  left: 0px;
-  top: 0px;
-  width: 100%;
-  height: 100%;
-  z-index: 9999;
-  background: url('img/page-loader.gif') 50% 50% no-repeat rgb(249,249,249);
-}
-#elastic_lists {
-
-  text-align: center;
-}
-
-/*.filtros{
-
-  width: 1210px;
-}*/
-
-.total{
-  font-weight: bold;
-}
-
-
-  </style>
   <body> 
     <div class="loader"></div>
 
     <div class="wrap pt20 pb20">
 
       <h1 class="txtC">Títulos Universitarios</h1>
+      <h4 class="txtC">La universidad es un espacio de desarrollo personal y profesional determinante para muchos ciudadanos. Los datos sobre la oferta de universidades, carreras y los títulos universitarios obtenidos son valiosos para la toma de decisiones, entre otras cosas. Esta herramienta busca facilitar el análisis de dichos datos.</h4>
+      
+      <table class="tips mt20 mb20">
+        <tr>
+          <td>Hace click al año, institución, titulo, carreras que queres filtrar.<br>
+              Podes utilizar varios filtros a la vez, haciendo click en varios items de columnas distintas.</td>
+          <td>Utiliza el buscador en la parte superior para hacer búsquedas específicas en cada columna.</td>
+          <td class="txtC">
+            <a href="#" id="open">Copiar e insertar este código en mi web</a>
+            <div id="overlay"></div>
+            <div id="info">
+              <div id="results">
+                <p>Copie el siguiente código:</p>
+                <textarea name="" id="" cols="50" rows="10"><iframe src="http://visualizaciones.datos.org.py/titulos-universitarios/" name="iframe_a"></iframe></textarea>
+                <p style="margin-top:20px; text-align:right;"><a href="#" id="close">Cerrar</a></p>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </table>
+
       <table>
         <tr>
-          <td class="txtC"><label for="anio">Año</label><input id="anio" type="text"></td>
-          <td class="txtC"><label for="institucion">Intitución</label><input id="institucion" type="text"></td>
-          <td class="txtC"><label for="carrera">Carrera</label><input id="carrera" type="text"></td>
-          <td class="txtC"><label for="titulo">Título</label><input id="titulo" type="text"></td>
+          <td class="txtC s240"><label for="anio">Año</label><input id="anio" type="text"></td>
+          <td class="txtC s240"><label for="institucion">Intitución</label><input id="institucion" type="text"></td>
+          <td class="txtC s240"><label for="carrera">Carrera</label><input id="carrera" type="text"></td>
+          <td class="txtC s240"><label for="titulo">Título</label><input id="titulo" type="text"></td>
         </tr>
       </table>
 
@@ -90,10 +81,10 @@
 
       <table>
         <tr>
-          <td class="txtC"><span  class="total"  >Total:</span><span id="total_anio"></span></td>
-          <td class="txtC"><span  class="total" >Total:</span><span  id="total_institucion"></span></td>
-          <td class="txtC"><span  class="total" >Total:</span><span  id="total_carrera"></span></td>
-          <td class="txtC"><span  class="total"  >Total:</span><span id="total_titulo"></span></td>
+          <td class="txtC s240"><span  class="total">Total:</span> <span id="total_anio"></span></td>
+          <td class="txtC s240"><span  class="total">Total:</span> <span  id="total_institucion"></span></td>
+          <td class="txtC s240"><span  class="total">Total:</span> <span  id="total_carrera"></span></td>
+          <td class="txtC s240"><span  class="total">Total:</span> <span id="total_titulo"></span></td>
         </tr>
       </table>
 
@@ -140,7 +131,53 @@
   var list = new Lists(facets, data, 600, 230, 0, 0.1 , "elastic_lists", function() { vis.render(); }); 
   list.canvas("elastic_lists").reset().render();
   apariencia();
-
+jQuery.fn.d3Click = function () {
+  this.each(function (i, e) {
+    var evt = document.createEvent("MouseEvents");
+    evt.initMouseEvent("click", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+    e.dispatchEvent(evt);
+  });
+};
+addId(); 
+listar = function(v_n){
+    v_g = document.getElementsByTagName('g')[0];
+    var titulo1 = [];
+    var v_hijos = v_g.children[v_n].children;
+    var v_flag = false;
+    for(var cant1 =0;  cant1<v_hijos.length;cant1++){
+        if(v_hijos[cant1].children[0].tagName=="text" && !v_flag){
+            titulo1.push(v_hijos[cant1].children[0].innerHTML);
+            v_flag = true;
+        }else if(v_hijos[cant1].children[0].tagName=="rect"){
+            v_flag = false;
+        }
+    }
+    return titulo1;
+};
+$( "#titulo" ).on( "focus", function( event, ui ) {$('#titulo').autocomplete("option", { source: listar(7) });} );
+$( "#titulo" ).autocomplete({
+      select: function (a, b) {
+          $("#"+b.item.value.replace(/(\s+|\.|\/)+/g, '').toUpperCase()).d3Click();
+      }
+ });
+ $( "#carrera" ).on( "focus", function( event, ui ) {$('#carrera').autocomplete("option", { source: listar(5) });} );
+ $( "#carrera" ).autocomplete({
+      select: function (a, b) {
+          $("#"+b.item.value.replace(/(\s+|\.|\/)+/g, '').toUpperCase()).d3Click();
+      }
+ });
+ $( "#institucion" ).on( "focus", function( event, ui ) {$('#institucion').autocomplete("option", { source: listar(3) });} );
+ $( "#institucion" ).autocomplete({
+      select: function (a, b) {
+          $("#"+b.item.value.replace(/(\s+|\.|\/)+/g, '').toUpperCase()).d3Click();
+      }
+ });
+ $( "#anio" ).on( "focus", function( event, ui ) {$('#anio').autocomplete("option", { source: listar(1) });} );
+ $( "#anio" ).autocomplete({
+      select: function (a, b) {
+          $("#"+b.item.value.replace(/(\s+|\.|\/)+/g, '').toUpperCase()).d3Click();
+      }
+ });
 
 
 //No muestro los que son demasiado pequenios
@@ -151,7 +188,7 @@
 
 
 
- var lista_carreras = [];
+/* var lista_carreras = [];
  var lista_titulos  = [];
   var lista_anios  = [];
    var lista_instituciones  = [];
@@ -240,8 +277,13 @@ lista_anios=lista_anios.remove_dups();
       }
     });
     
-  
+  */
 
     </script> 
+
+    <p class="txtC">
+      <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Licencia Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />Esta obra está bajo una <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Licencia Creative Commons Atribución 4.0 Internacional</a>.
+    </p>
+
   </body>
 </html>
